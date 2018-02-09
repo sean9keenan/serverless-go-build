@@ -11,7 +11,7 @@ Will support the following very soon:
  - Allow packageName.FunctionName as function handlers
  - Automatically packaging go binaries into separate deployed zips
  - Allowing running serverless dev environments when running tests (eg: dynamoDB)
- - `test` command supporting 
+ - `serverless test` command supporting running individual test
 
 Example `serverless.yml`
 ```yaml
@@ -58,3 +58,5 @@ The most up-to-date place to look is the code - the top of `index.js`.
  - Array of tests to run
     + `tests: []`
 
+## Other features
+`serverless build --function getWidget` works as expected
