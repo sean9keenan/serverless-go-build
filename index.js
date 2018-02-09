@@ -21,6 +21,8 @@ const defaultGoDict = {
   binPath: 'bin/',
   // Array of tests to run
   tests: [],
+  // Runtime to require
+  runtime: "go1.x"
 }
 
 class ServerlessPlugin {
@@ -81,16 +83,19 @@ class ServerlessPlugin {
     // Retrieve the full objects
     const functions = functionNames.map((func) => this.serverless.service.getFunction(func))
 
-    // Filter out functions that are not golang
+    // Filter out functions that are not the expected runtime
+
+    // Get the runtime we are expecting a function to have
+    const runtime = this.getGoConfigParam('runtime')
 
     // First determine if project default is golang
-    const isProjectGolang = serverless.service.provider.runtime === "go1.x"
+    const isProjectGolang = this.serverless.service.provider.runtime === runtime
 
     let isFileGolangFunc;
     if (isProjectGolang) {
-      isFileGolangFunc = f => !f.runtime || f.runtime === "go1.x"
+      isFileGolangFunc = f => !f.runtime || f.runtime === runtime
     } else {
-      isFileGolangFunc = f => f.runtime && f.runtime === "go1.x"
+      isFileGolangFunc = f => f.runtime && f.runtime === runtime
     }
 
     const goFunctions = functions.filter(isFileGolangFunc)
