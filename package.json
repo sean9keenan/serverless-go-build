@@ -1,0 +1,28 @@
+{
+  "name": "serverless-go-build",
+  "version": "0.0.1",
+  "description": "Serverless plugin to build your go binaries",
+  "main": "index.js",
+  "author": "Sean Keenan <sean9keenan@gmail.com> (http://skeenan.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sean9keenan/serverless-go-build.git"
+  },
+  "keywords": [
+    "serverless",
+    "1.0",
+    "go",
+    "golang",
+    "build",
+    "plugin"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sean9keenan/serverless-go-build/issues"
+  },
+  "homepage": "https://github.com/sean9keenan/serverless-go-build#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "chalk": "^2.3.0"
+  }
+}
