@@ -19,6 +19,7 @@ npm install --save serverless-go-build
  - `serverless build` : Builds _all_ Go binaries listed as function handlers
  - `serverless build --function getWidget` : Builds specific Go binaries
  - `serverless test` : Runs tests specified in serverless.yml
+     + Passes in Environment variable `GO_TEST=serverless`
  - Heavy customization : (Doesn't even need to build Go!)
 
 `serverless deploy` will *not* run the builds - run `serverless build` first.

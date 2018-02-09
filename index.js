@@ -39,7 +39,7 @@ class ServerlessPlugin {
         options: {
           local: {
             usage:
-              'If the build should be made for the local machine (otherwise defaults to AWS deployment)',
+              'Not yet active: If the build should be made for the local machine (otherwise defaults to AWS deployment)',
             shortcut: 'l',
           },
         },
@@ -60,6 +60,11 @@ class ServerlessPlugin {
     };
   }
 
+  /**
+   * Gets go-build configuation parameter from serverless.yml - or default
+   * @param  {string} param -- Key to get - must be defined in defaultGoDict
+   * @return {object}
+   */
   getGoConfigParam(param) {
     try {
       const val = this.serverless.service.custom['go-build'][param]
@@ -70,6 +75,14 @@ class ServerlessPlugin {
     }
   }
 
+  /**
+   * Gets all functions for building.
+   *
+   * This filters out functions from the wrong runtime, or returns only a single
+   * function in the case that a specific function was passed in at runtime
+   * 
+   * @return {list(objects)} List of functions, objects defined by serverless
+   */
   getRelevantGoFunctions() {
     let functionNames;
     
@@ -83,7 +96,9 @@ class ServerlessPlugin {
     // Retrieve the full objects
     const functions = functionNames.map((func) => this.serverless.service.getFunction(func))
 
+    // 
     // Filter out functions that are not the expected runtime
+    // 
 
     // Get the runtime we are expecting a function to have
     const runtime = this.getGoConfigParam('runtime')
@@ -103,6 +118,11 @@ class ServerlessPlugin {
     return goFunctions
   }
 
+  /**
+   * Get the destination binary path for a given function
+   * @param  {object} func -- Serverless function object
+   * @return {string}      -- Path of binary
+   */
   getOutputBin(func) {
       let outputbin = func.handler.replace(/\.go$/, "")
       const binPath = this.getGoConfigParam('binPath')
@@ -110,7 +130,10 @@ class ServerlessPlugin {
       return outputbin
   }
 
-
+  /**
+   * Run the build on all relevant files
+   * @return {BbPromise}
+   */
   build() {
     this.serverless.cli.log('Beginning Go build');
 
@@ -138,6 +161,10 @@ class ServerlessPlugin {
     });
   }
 
+  /**
+   * Run tests
+   * @return {BbPromise}
+   */
   tests() {
     this.serverless.cli.log('Running Go tests')
 
@@ -163,6 +190,9 @@ class ServerlessPlugin {
     })
   }
 
+  /**
+   * Before packaging functions must be redirected to point to the binary built
+   */
   predeploy() {
     this.serverless.cli.log(`Reassigning go paths to point to ${this.getGoConfigParam('binPath')}`);
 
