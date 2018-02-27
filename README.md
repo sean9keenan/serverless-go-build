@@ -12,7 +12,7 @@ Use your serverless.yml file as your build script, allowing specifying public fu
 ## Features
 
  - Runs build for all go files listed as handlers (no separate build script!)
- - Specify go files _or_ packages _or_ Public Functions directly (instead of binaries)
+ - Specify go files _or_ Public Functions directly (instead of binaries)
      + Allows specifying packageName.FunctionName as function handler
  - Runs go tests
  - Can start serverless plugins before tests
@@ -37,6 +37,11 @@ npm install --save serverless-go-build
 `serverless deploy` will *not* run the builds - run `serverless build` first.
 
 ### Example `serverless.yml`
+
+The below is a full serverless.yml example - however the only unique parts are:
+ - `custom.go-build` - Location of custom overrides (see [below](./README.md#customization))
+ - `package` - _Optionally_ specify `individually: true` for individual packaging
+ - `functions.{yourFunction}.handler` - Specify your handler as .go file or module.PublicFunction
 
 ```yaml
 service: myService
