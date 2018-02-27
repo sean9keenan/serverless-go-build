@@ -5,8 +5,9 @@
 [![NPM][ico-npm]][link-npm]
 
 A Serverless v1.x plugin to making building Go easy!
+ 
+Use your serverless.yml file as your build script, allowing specifying public functions or .go files as your entry points. Also can starting up serverless plugins before running tests, and of course properly packages the built binary for upload (by default even individually packages each binary for increased performance!).
 
-This is for you if you don't want to maintain a separate build script, indirect serverless handler definitions, and want the easiest Go serverless experince!
 
 ## Features
 
