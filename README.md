@@ -12,11 +12,11 @@ Use your serverless.yml file as your build script, allowing specifying public fu
 ## Features
 
  - Runs build for all go files listed as handlers (no separate build script!)
- - Specify go files _or_ Public Functions directly (instead of binaries)
+ - Specify go files _or_ Public Functions directly (or continue to use path to binary)
      + Allows specifying packageName.FunctionName as function handler
  - Runs go tests
  - Can start serverless plugins before tests
-     + eg: S3 or Dynalite test server - these intialize resources based on yaml file
+     + eg: S3 or Dynalite test server - these can initialize resources based on yaml file
  - Individually packages each function for minimum lambda code size
      + Instead of sending one zip up with all binaries
  - Heavily customizable!
