@@ -343,7 +343,16 @@ class ServerlessPlugin {
       });
     })
     .then(result => {
-      return BbPromise.reject(new TerminateOnTestFinishSuccess())
+
+      this.serverless.cli.log(`Tests successfully exited`);
+      // Unfortunately there does not seem to be a clean way
+      // to quit out of serverless without throwing an error
+      // and thus returning a non-zero response which is 
+      // unacceptable when running tests.
+      // Simply exit the process with a success.
+      // Re-add the BbPromise reject for a slightly cleaner exit
+      process.exit(0)
+      // return BbPromise.reject(new TerminateOnTestFinishSuccess())
     })
   }
 
