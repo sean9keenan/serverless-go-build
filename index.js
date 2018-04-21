@@ -18,7 +18,7 @@ const defaultGoDict = {
   // Build command - followed by bin dest and input path
   buildCmd: `go build -ldflags="-s -w" -o %2 %1`,
   // Test command - followed by value in tests array below
-  testCmd: `stage=testing GO_TEST=serverless go test %1`,
+  testCmd: `stage=testing GO_TEST=serverless go test -v %1`,
   // Path to store build results
   binPath: 'bin',
   // Runtime to require
