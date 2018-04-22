@@ -1,6 +1,6 @@
 {
   "name": "serverless-go-build",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Serverless plugin to build your go binaries",
   "main": "index.js",
   "author": "Sean Keenan <sean9keenan@gmail.com> (http://skeenan.com)",
