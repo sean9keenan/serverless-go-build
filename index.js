@@ -368,7 +368,7 @@ class ServerlessPlugin {
       if (this.getGoConfigParam('minimizePackage') && !func.package) {
         func.package = {
           exclude: [`./**`],
-          include: [`./${func.handler}`],
+          include: [func.handler],
         }
       }
     }
