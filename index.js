@@ -92,6 +92,7 @@ class ServerlessPlugin {
       'test:test': this.tests.bind(this),
       'before:deploy:function:packageFunction': this.predeploy.bind(this),
       'before:package:createDeploymentArtifacts': this.predeploy.bind(this),
+      'before:sam:export:export': this.predeploy.bind(this),
     };
   }
 
