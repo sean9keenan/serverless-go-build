@@ -100,6 +100,8 @@ You can override any of these fields inside of `custom.go-build`:
   buildCmd: `go build -ldflags="-s -w" -o %2 %1`,
   // Test command - followed by value in tests array below
   testCmd: `stage=testing GO_TEST=serverless go test %1`,
+  // Specify bin path as the handler, the plugin will derive the source Go file.
+  useBinPathForHandler: false,
   // Path to store build results
   binPath: 'bin',
   // Runtime to require
@@ -125,7 +127,29 @@ You can override any of these fields inside of `custom.go-build`:
 }
 ```
 
+## Using with Serverless Offline
 
+Other plugins such as serverless-offline require that the handler of a function point at the actual binary that needs to be run. In order to accomplish this, you can use the `useBinPathForHandler` option. When `useBinPathForHandler` is set to `true`, the plugin will assume that the path set in your functions section of the serverless.yml file refers to the resulting build location, and not the source Go file.
+
+If you set your handler to `bin/hello/main`, it will assume that the source Go file is at `hello/main.go`.
+
+You can set `binPath` to a custom folder name. However, you must also make sure to use that folder name in the handler name if used in conjunction with `useBinPathForHandler`.
+
+```
+custom:
+  go-build:
+    useBinPathForHandler: true
+    binPath: compiled
+functions:
+  getWidget:
+    handler: compiled/entrypoints/widget/main
+    events:
+      - http:
+          path: widget
+          method: get
+```
+
+The above will look for a Go file at `entrypoints/widget/main.go`, and then compile it to `compiled/entrypoints/widget/main`.
 ## Coming Soon 
 Will support in the future:
  - `serverless test` command supporting running individual test
